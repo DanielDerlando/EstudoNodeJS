@@ -1,0 +1,12 @@
+<h1>Translator</h1>
+<form action='/translator/translate' method="GET">
+    <label> Texto: </label>
+    <input type="text-area" id="text" name="text" value="{{text}}"/>
+    <label> De-Para: </label>
+    <input type="text" id="modelId" name="modelId" value="{{modelId}}"/>
+    <button type="submit">Translate</button>
+    <label> Result: </label>
+    {{#each result.result.translations}}
+    <input type="text-area" id="resut" name="result" value='{{translation}}'/>
+    {{/each}}
+</form>
