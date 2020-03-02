@@ -89,11 +89,6 @@ describe('GET /translator/translate Erro', () => {
     return request(server)
       .get('/translator/translate?text=Hi%21' +
       '+How+are+you%3F&modelId=qualquercoisa')
-      .expect(200)
-      .then(response => {
-        expect(response.text).to.include(
-          'Internal Error.'
-        );
-      });
+      .expect(404);
   });
 });
