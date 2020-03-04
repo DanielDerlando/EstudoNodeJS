@@ -29,12 +29,10 @@ var getTranslatedAPI = function(req, res) {
 
 exports.getTranslatedAPI = getTranslatedAPI;
 
-// get text translated
-exports.getTranslated = (req, res) => {
-  console.log('In controller - getTranslated');
+function translated(req, res, origem){
   languageTranslator.translate({
     text: req.query.text,
-    modelId: req.query.de + '-' + req.query.para,
+    modelId: origem + '-' + req.query.para,
   }).then(translationResult => {
     console.log(JSON.stringify(translationResult, null, 2));
     res.render('translate', {result: translationResult,
@@ -44,8 +42,27 @@ exports.getTranslated = (req, res) => {
       para: req.query.para});
   }).catch(err => {
     console.log('error:', err);
-    res.sendFile(path.join(__dirname, '../public', '500.html'));
+    res.sendFile(path.join(__dirname, '..../public', '500.html'));
   });
+}
+
+// get text translated
+exports.getTranslated = (req, res) => {
+  console.log('In controller - getTranslated');
+  let origem = req.query.de;
+  if (!origem){
+    console.log('In controller - missing field de');
+    languageTranslator.identify({text: req.query.text})
+      .then(identifiedLanguages => {
+        console.log(JSON.stringify(identifiedLanguages, null, 2));
+        origem = identifiedLanguages.result.languages[0].language;
+        console.log(origem);
+        translated(req, res, origem);
+      });
+  } else {
+    console.log(origem);
+    translated(req, res, origem);
+  }
 };
 
 
@@ -58,3 +75,5 @@ exports.getLanguages = (req, res) => {
     res.render('translate', {languages: languagesLoaded});
   });
 };
+
+

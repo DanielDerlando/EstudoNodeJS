@@ -96,6 +96,20 @@ describe('GET API /translator/translated How r u', () => {
   });
 });
 
+describe('GET /translator/translate How r u', () => {
+  it('responds with Oi! Como você está?', () => {
+    return request(server)
+      .get('/translator/translate?text=Hi%21+How+are+you%3F&de=&para=pt')
+      .expect(200)
+      .then(response => {
+        expect(response.text).to.include(
+          'Oi! Como você está?'
+        );
+      });
+  });
+});
+
+
 describe('GET /translator/translate Erro', () => {
   it('responds with console print', () => {
     return request(server)
