@@ -74,7 +74,7 @@ describe('GET /translator', () => {
 describe('GET /translator/translate How r u', () => {
   it('responds with Oi! Como você está?', () => {
     return request(server)
-      .get('/translator/translate?text=Hi%21+How+are+you%3F&modelId=en-pt')
+      .get('/translator/translate?text=Hi%21+How+are+you%3F&de=en&para=pt')
       .expect(200)
       .then(response => {
         expect(response.text).to.include(
@@ -84,11 +84,23 @@ describe('GET /translator/translate How r u', () => {
   });
 });
 
+describe('GET API /translator/translated How r u', () => {
+  it('responds with json', () => {
+    return request(server)
+      .get('/translator/translated?text=Hi%21+How+are+you%3F&de=en&para=pt')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .expect(200, {
+        text: 'Oi! Como você está?',
+      });
+  });
+});
+
 describe('GET /translator/translate Erro', () => {
   it('responds with console print', () => {
     return request(server)
       .get('/translator/translate?text=Hi%21' +
-      '+How+are+you%3F&modelId=qualquercoisa')
+      '+How+are+you%3F&de=qualquercoisa&para=qualquercoisa')
       .expect(404);
   });
 });

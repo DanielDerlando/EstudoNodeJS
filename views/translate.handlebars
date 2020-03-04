@@ -1,12 +1,28 @@
 <h1>Translator</h1>
 <form action='/translator/translate' method="GET">
+    <label> De:</label>
+    <select id="de" name="de">
+        <option value="">Selecione um Idioma</option>
+        {{#each languages.result.languages}}
+        <option value="{{language}}">{{name}}</option>
+        {{/each}}
+    </select>
     <label> Texto: </label>
     <input type="text-area" id="text" name="text" value="{{text}}"/>
-    <label> De-Para: </label>
-    <input type="text" id="modelId" name="modelId" value="{{modelId}}"/>
+    <label> Para:</label>
+    <select id="para" name="para">
+        <option value="">Selecione um Idioma</option>
+        {{#each languages.result.languages}}
+        <option value="{{language}}">{{name}}</option>
+        {{/each}}
+    </select>
     <button type="submit">Translate</button>
-    <label> Result: </label>
-    {{#each result.result.translations}}
-    <input type="text-area" id="resut" name="result" value='{{translation}}'/>
-    {{/each}}
 </form>
+{{#if result}}
+<div>
+    <h3> Result </h3>
+    {{#each result.result.translations}}
+    <p>{{translation}}</p>
+    {{/each}}
+</div>
+{{/if}}

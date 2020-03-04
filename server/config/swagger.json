@@ -29,10 +29,62 @@
                }
             }
          }
+      },
+      "/translator/translated": {
+         "get": {
+            "operationId": "getTranslated",
+            "description": "traduz uma mensagem",
+            "parameters": [
+               {
+                 "name": "text",
+                 "in": "query",
+                 "description": "text",
+                 "required": true,
+                 "type": "string",
+                 "x-example": "How are you?"
+               },
+               {
+                 "name": "de",
+                 "in": "query",
+                 "description": "de",
+                 "required": true,
+                 "type": "string",
+                 "x-example": "en"
+               },
+               {
+                 "name": "para",
+                 "in": "query",
+                 "description": "para",
+                 "required": true,
+                 "type": "string",
+                 "x-example": "pt"
+               }
+             ],"responses": {
+               "200": {
+                  "description": "Text traduzido",
+                  "schema": {
+                     "$ref": "#/definitions/tranlated"
+                  },
+                  "examples": {
+                     "application/json": {
+                        "text": "Como você está?"
+                     }
+                  }
+               }
+            }
+         }
       }
    },
    "definitions": {
       "healthResponse": {
+         "type": "object",
+         "properties": {
+            "status": {
+               "type": "string"
+            }
+         }
+      },
+      "tranlated": {
          "type": "object",
          "properties": {
             "status": {

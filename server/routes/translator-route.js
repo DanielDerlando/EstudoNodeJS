@@ -6,5 +6,7 @@ const router = express.Router();
 
 // define routes
 router.get('/translate', TranslatorController.getTranslated);
+router.get('/translated', TranslatorController.getTranslatedAPI);
+router.get('/', TranslatorController.getLanguages);
 
 module.exports = router;

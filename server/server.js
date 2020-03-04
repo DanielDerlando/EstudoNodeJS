@@ -44,10 +44,6 @@ app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
-app.get('/translator', function(req, res){
-  res.render('translate');
-});
-
 
 // error handler for unmatched routes or api calls
 app.use((req, res, next) => {
